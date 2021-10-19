@@ -9,11 +9,13 @@ COMPLETE FROM TOP TO BOTTOM (in fact we encourage you not to). */
 Hint: We need:
       (1) a variable for keeping track of the total number,
       (2) the string value that is shown on the display screen
-      (3) the operator (+, x, -, and ÷) that is selected.  */
+      (3) the operator (+, x, -, and ÷) that is selected.  
+      (4) a boolean that flips to true after displaying the result of a calculation. */
       
       let total = 0;
       let strbuffer = "0";
       let operator = "";
+      let calcDisplay = false;
       
       /*  FUNC DESCRIPTION: Operator calculations. Create the in +, x, -, and ÷ operator calculations. The plus operator is done for you!
           Uncomment and fill in the blank spaces. */
@@ -37,8 +39,14 @@ Hint: We need:
       
       /*   FUNC DESCRIPTION: If user input is a number, create the function. */
       function makesNumber(value) {
-          if (strbuffer === "0") {
+        if (calcDisplay) {
+            calcDisplay = false;
+            total = 0;
+            strbuffer = value;
+        }  
+        else if (strbuffer === "0" || calcDisplay) {
               strbuffer = value;
+              calcDisplay = false;
           } else {
           /*  If strbuffer is not 0, meaning there is a previous number typed in already, what should we display on the screen?
           Hint: How do we concatenate strings? If you are stuck, imagine typing in a "5" into the calculator, making strbuffer into "5". 
@@ -56,19 +64,23 @@ Hint: We need:
           if (symbol === "C") {
               strbuffer = "0";
               total = 0;
+              calcDisplay = false;
           }
           else if (symbol === "←") {
-              buffLength = strbuffer.length
-              if (buffLength === 1) {
-                  strbuffer = "0";
-              } else {
-                    strbuffer = strbuffer.substring(0, buffLength - 1);
-              }
+            if (calcDisplay === false) {
+                buffLength = strbuffer.length
+                if (buffLength === 1) {
+                    strbuffer = "0";
+                } else {
+                        strbuffer = strbuffer.substring(0, buffLength - 1);
+                }
+            }
           }
           else if (symbol === "=") {
               calculations()
               strbuffer =  "" + total;
-              operator = "";
+              operator = "=";
+              calcDisplay = true;
           }
           else { //make functionality if symbol is an operator
             const intBuffer = parseInt(strbuffer);
@@ -79,6 +91,7 @@ Hint: We need:
             }
             operator = symbol;
             strbuffer = "0";
+            calcDisplay = false;
           }
       }
       
