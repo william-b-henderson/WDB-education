@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Advance CSS Demo</title>
+  </head>
+  <body>
+    <h1 id="header">My Javascript Website</h1>
+   <button id="button">Button 1</button>
+
+
+    <input type="text" id="input"></input>
+    <button id="submit">Submit</button>
+    <ul id="list">
+
+    </ul>
+
+
+    <script src="lecture3.js">
+      document.getElementById("button").onclick = function (e) {
+        alert(`You clicked on ${event.target.innerText}`);
+        event.target.style.color = "purple";
+      }
+      document.getElementById("header").addEventListener("click", function (e) {
+        alert(`You clicked on ${event.target.innerText}`);
+      });
+    </script>
+  </body>
+</html>
