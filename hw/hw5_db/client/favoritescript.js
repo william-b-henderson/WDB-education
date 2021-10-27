@@ -1,4 +1,5 @@
 (() => {
+    const api_url = "http://localhost:8080/api/";
     // makeAPOD is used to create a APOD node in the following format:
     // <div class="apod">
     //     <small id="apod-date"> 02-21-2021 </small>
@@ -20,10 +21,19 @@
 
     // TODO: Fetch a list of APODs from the database.
     // Here the apods are filled with dummy data.
-    apods = [["https://apod.nasa.gov/apod/image/2102/rosette_goldman_960.jpg", "02-21-2021"], ["https://apod.nasa.gov/apod/image/2102/rosette_goldman_960.jpg", "02-20-2021"]]
-    var al = document.getElementById("apod-list");
-    for (apod of apods) {
-        console.log(apod)
-        al.appendChild(makeAPOD(apod[0], apod[1]))
-    }
+    apods = fetch(api_url+'all')
+    .then(response => response.json())
+    .then(result => result['apods'])
+    .then(apods => {
+        var al = document.getElementById("apod-list");
+        for (apod of apods) {
+            console.log(apod);
+            al.appendChild(makeAPOD(apod['url'], apod['date']))
+        }
+    })
+    
+    // for (apod of apods) {
+    //     console.log(apod)
+    //     al.appendChild(makeAPOD(apod[0], apod[1]))
+    // }
 })()
